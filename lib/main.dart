@@ -359,3 +359,20 @@ class Message {
         jobStatus: json['jobStatus'] as String);
   }
 }
+
+{
+  "type": "NOTIFICATIONS_RESPONSE",
+  "date": [
+    {
+      "id": 12,
+      "userName": "g3ujna",
+      "notificationType": "INSERT", // or UPDATE,DELETE,UPLOAD,CUSTOM
+      "productName": "SFWL",
+      "subProductName": "RPL-S",
+      "message": "Sample message",
+      "status": "RUNNING" // or COMPLETE, FAILED,
+      "insertedDate": "",
+      "updatedDate": ""
+    }
+  ]
+}
