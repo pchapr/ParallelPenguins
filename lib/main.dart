@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(
         title: title,
         channel:
-            WebSocketChannel.connect(Uri.parse('wss://echo.websocket.org')),
+            WebSocketChannel.connect(Uri.parse('ws://alfapt-db01:8070/amtmactivity/ws/notifications')),
       ),
     );
   }
