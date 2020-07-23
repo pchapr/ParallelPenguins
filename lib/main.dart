@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(
         title: title,
         channel:
-            WebSocketChannel.connect(Uri.parse('ws://alfapt-db01:8070/amtmactivity/ws/notifications')),
+            WebSocketChannel.connect(Uri.parse('wss://echo.websocket.org')),
       ),
     );
   }
@@ -205,15 +205,10 @@ class _MyHomePageState extends State<MyHomePage> {
     //   );
     //   widget.channel.sink.add(_controller.text);
     // }
+    // widget.channel.sink.add(
+    //     '{type: "NOTIFICATIONS_REQUEST", data: {userName: "g3ujna", fetchCount: 10, refreshRate: 2000, order: "desc"}}');
     widget.channel.sink.add(
-        '{
-  type: "NOTIFICATIONS_REQUEST",
-  data: {
-  userName: "g3ujna",
-  fetchCount: 10,
-  refreshRate: 2000,
-  order: "desc"
-}}');
+        '{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}');
   }
 
   // Widget parseJson(String jsonString) {
@@ -254,8 +249,8 @@ class MessageList extends StatelessWidget {
 
   Widget build(BuildContext context) {
     Widget card;
-    switch (messages[0].jobStatus) {
-      case "COMPLETED":
+    switch (messages[0].messageData[0].status) {
+      case "COMPLETE":
         card = Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -265,45 +260,51 @@ class MessageList extends StatelessWidget {
                   Icons.check_circle,
                   color: Colors.green,
                 ),
-                title: Text(messages[0].jobStatus),
-                subtitle: Text('\n\nEntity Type: ' +
-                    messages[0].entityType +
-                    '\n\nEvent Type:' +
-                    messages[0].entityType),
+                title: Text(messages[0].messageData[0].status),
+                subtitle: Text('Product: ' +
+                    messages[0].messageData[0].productName +
+                    '\nEvent Type:' +
+                    messages[0].messageData[0].subProductName +
+                    '\nMessage: ' +
+                    messages[0].messageData[0].message),
               ),
             ],
           ),
         );
         break;
-      case "INPROGRESS":
+      case "RUNNING":
         card = Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.check_circle, color: Colors.yellow),
-                title: Text(messages[0].jobStatus),
-                subtitle: Text('\n\nEntity Type: ' +
-                    messages[0].entityType +
-                    '\n\nEvent Type:' +
-                    messages[0].entityType),
+                title: Text(messages[0].messageData[0].status),
+                subtitle: Text('\n\nProduct: ' +
+                    messages[0].messageData[0].productName +
+                    '\nEvent Type:' +
+                    messages[0].messageData[0].subProductName +
+                    '\nMessage: ' +
+                    messages[0].messageData[0].message),
               ),
             ],
           ),
         );
         break;
-      case "FAILURE":
+      case "FAILED":
         card = Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.warning, color: Colors.red),
-                title: Text(messages[0].jobStatus),
-                subtitle: Text('\n\nEntity Type: ' +
-                    messages[0].entityType +
-                    '\n\nEvent Type:' +
-                    messages[0].entityType),
+                title: Text(messages[0].messageData[0].status),
+                subtitle: Text('\n\nProduct: ' +
+                    messages[0].messageData[0].productName +
+                    '\nEvent Type:' +
+                    messages[0].messageData[0].subProductName +
+                    '\nMessage: ' +
+                    messages[0].messageData[0].message),
               ),
             ],
           ),
@@ -343,36 +344,56 @@ class MessageList extends StatelessWidget {
 }
 
 class Message {
-  final int id;
-  final String eventType;
-  final String entityType;
-  final String jobStatus;
+  final String type;
+  final List<MessageData> messageData;
 
-  Message({this.id, this.eventType, this.entityType, this.jobStatus});
+  Message({this.type, this.messageData});
 
   factory Message.fromJson(String jsonStr) {
     Map<String, dynamic> json = jsonDecode(jsonStr);
-    return Message(
-        id: json['id'] as int,
-        eventType: json['eventType'] as String,
-        entityType: json['entityType'] as String,
-        jobStatus: json['jobStatus'] as String);
+    var list = json['data'];
+    print(list.runtimeType);
+    var dynamicList = list.map((i) => MessageData.fromJson(i)).toList();
+    var messageData = List<MessageData>.from(dynamicList);
+    print(messageData.runtimeType);
+    return Message(type: json['type'] as String, messageData: messageData);
   }
 }
 
-{
-  "type": "NOTIFICATIONS_RESPONSE",
-  "date": [
-    {
-      "id": 12,
-      "userName": "g3ujna",
-      "notificationType": "INSERT", // or UPDATE,DELETE,UPLOAD,CUSTOM
-      "productName": "SFWL",
-      "subProductName": "RPL-S",
-      "message": "Sample message",
-      "status": "RUNNING" // or COMPLETE, FAILED,
-      "insertedDate": "",
-      "updatedDate": ""
-    }
-  ]
+class MessageData {
+  final int id;
+  final String userName;
+  final String notificationType;
+  final String productName;
+  final String subProductName;
+  final String message;
+  final String status;
+  final String insertedDate;
+  final String updatedDate;
+
+  MessageData(
+      {this.id,
+      this.userName,
+      this.notificationType,
+      this.productName,
+      this.subProductName,
+      this.message,
+      this.status,
+      this.insertedDate,
+      this.updatedDate});
+
+  factory MessageData.fromJson(Map<String, dynamic> json) {
+    //Map<String, dynamic> json = jsonDecode(jsonStr);
+    print(json.runtimeType);
+    return MessageData(
+        id: json['id'] as int,
+        userName: json['userName'] as String,
+        notificationType: json['notificationType'] as String,
+        productName: json['productName'] as String,
+        subProductName: json['subProductName'] as String,
+        message: json['message'] as String,
+        status: json['status'] as String,
+        insertedDate: json['insertedDate'] as String,
+        updatedDate: json['updatedDate'] as String);
+  }
 }
