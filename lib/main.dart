@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: title,
       home: MyHomePage(
         title: title,
-        channel: WebSocketChannel.connect(Uri.parse('ws://echo.websocket.org')),
+        channel: WebSocketChannel.connect(Uri.parse('ws://alfapt-db01:8070/amtmactivity/ws/notifications')),
       ),
     );
   }
