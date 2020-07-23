@@ -205,10 +205,10 @@ class _MyHomePageState extends State<MyHomePage> {
     //   );
     //   widget.channel.sink.add(_controller.text);
     // }
-    // widget.channel.sink.add(
-    //     '{type: "NOTIFICATIONS_REQUEST", data: {userName: "g3ujna", fetchCount: 10, refreshRate: 2000, order: "desc"}}');
     widget.channel.sink.add(
-        '{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}');
+         '{type: "NOTIFICATIONS_REQUEST", data: {userName: "g3ujna", fetchCount: 10, refreshRate: 2000, order: "desc"}}');
+    //widget.channel.sink.add(
+    //    '{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}');
   }
 
   // Widget parseJson(String jsonString) {
