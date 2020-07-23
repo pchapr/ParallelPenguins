@@ -206,9 +206,9 @@ class _MyHomePageState extends State<MyHomePage> {
     //   widget.channel.sink.add(_controller.text);
     // }
     widget.channel.sink.add(
-         '{"type": "NOTIFICATIONS_REQUEST", "data": {"userName": "g3ujna", "fetchCount": 10, "refreshRate": 2000, "order": "desc", "startTime": "2020-07-23T08:00:00"}}');
-    //widget.channel.sink.add(
-    //    '{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}');
+        '{"type": "NOTIFICATIONS_REQUEST", "data": {"userName": "g3ujna", "fetchCount": 10, "refreshRate": 2000, "order": "desc", "startTime": "2020-07-23T08:00:00"}}');
+    // widget.channel.sink.add(
+    //     '{"type":"NOTIFICATIONS_RESPONSE","data":{"id":1,"userName":"g3ujna","notificationType":"UPLOAD","productName":"ARMWL","subProductName":"RPL-S","message":"Uploading to RPL-S","status":"RUNNING","insertedDate":"2020-07-23T14:13:18","updatedDate":"2020-07-23T14:13:18"}}');
   }
 
   // Widget parseJson(String jsonString) {
@@ -249,7 +249,7 @@ class MessageList extends StatelessWidget {
 
   Widget build(BuildContext context) {
     Widget card;
-    switch (messages[0].messageData[0].status) {
+    switch (messages[0].messageData.status) {
       case "COMPLETE":
         card = Card(
           child: Column(
@@ -260,13 +260,13 @@ class MessageList extends StatelessWidget {
                   Icons.check_circle,
                   color: Colors.green,
                 ),
-                title: Text(messages[0].messageData[0].status),
+                title: Text(messages[0].messageData.status),
                 subtitle: Text('Product: ' +
-                    messages[0].messageData[0].productName +
+                    messages[0].messageData.productName +
                     '\nEvent Type:' +
-                    messages[0].messageData[0].subProductName +
+                    messages[0].messageData.subProductName +
                     '\nMessage: ' +
-                    messages[0].messageData[0].message),
+                    messages[0].messageData.message),
               ),
             ],
           ),
@@ -279,13 +279,13 @@ class MessageList extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.check_circle, color: Colors.yellow),
-                title: Text(messages[0].messageData[0].status),
+                title: Text(messages[0].messageData.status),
                 subtitle: Text('\n\nProduct: ' +
-                    messages[0].messageData[0].productName +
+                    messages[0].messageData.productName +
                     '\nEvent Type:' +
-                    messages[0].messageData[0].subProductName +
+                    messages[0].messageData.subProductName +
                     '\nMessage: ' +
-                    messages[0].messageData[0].message),
+                    messages[0].messageData.message),
               ),
             ],
           ),
@@ -298,13 +298,13 @@ class MessageList extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 leading: Icon(Icons.warning, color: Colors.red),
-                title: Text(messages[0].messageData[0].status),
+                title: Text(messages[0].messageData.status),
                 subtitle: Text('\n\nProduct: ' +
-                    messages[0].messageData[0].productName +
+                    messages[0].messageData.productName +
                     '\nEvent Type:' +
-                    messages[0].messageData[0].subProductName +
+                    messages[0].messageData.subProductName +
                     '\nMessage: ' +
-                    messages[0].messageData[0].message),
+                    messages[0].messageData.message),
               ),
             ],
           ),
@@ -345,7 +345,7 @@ class MessageList extends StatelessWidget {
 
 class Message {
   final String type;
-  final List<MessageData> messageData;
+  final MessageData messageData;
 
   Message({this.type, this.messageData});
 
@@ -353,10 +353,12 @@ class Message {
     Map<String, dynamic> json = jsonDecode(jsonStr);
     var list = json['data'];
     print(list.runtimeType);
-    var dynamicList = list.map((i) => MessageData.fromJson(i)).toList();
-    var messageData = List<MessageData>.from(dynamicList);
-    print(messageData.runtimeType);
-    return Message(type: json['type'] as String, messageData: messageData);
+    // var dynamicList = list.map((i) => MessageData.fromJson(i)).toList();
+    // var messageData = List<MessageData>.from(dynamicList);
+    // print(messageData.runtimeType);
+    return Message(
+        type: json['type'] as String,
+        messageData: MessageData.fromJson(json['data']));
   }
 }
 
@@ -397,5 +399,3 @@ class MessageData {
         updatedDate: json['updatedDate'] as String);
   }
 }
-
-{"type":"NOTIFICATIONS_RESPONSE","data":{"id":1,"userName":"g3ujna","notificationType":"UPLOAD","productName":"ARMWL","subProductName":"RPL-S","message":"Uploading to RPL-S","status":"RUNNING","insertedDate":"2020-07-23T14:13:18","updatedDate":"2020-07-23T14:13:18"}}
