@@ -23389,7 +23389,7 @@ $in:1}
 P.Bf.prototype={}
 P.Bg.prototype={}
 F.ve.prototype={
-J:function(a){var s,r,q,p,o="Parallel Penguins Observability - \ud83d\udc27\ud83d\udc27\ud83d\udc27\ud83d\udc27\ud83d\udc27",n=null,m=W.a_B(P.UN("wss://echo.websocket.org").i(0),n)
+J:function(a){var s,r,q,p,o="Parallel Penguins Observability - \ud83d\udc27\ud83d\udc27\ud83d\udc27\ud83d\udc27\ud83d\udc27",n=null,m=W.a_B(P.UN("ws://alfapt-db01:8070/amtmactivity/ws/notifications").i(0),n)
 m.binaryType="arraybuffer"
 s=new B.xo(t.sL)
 r=t.z
