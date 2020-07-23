@@ -397,3 +397,5 @@ class MessageData {
         updatedDate: json['updatedDate'] as String);
   }
 }
+
+{"type":"NOTIFICATIONS_RESPONSE","data":{"id":1,"userName":"g3ujna","notificationType":"UPLOAD","productName":"ARMWL","subProductName":"RPL-S","message":"Uploading to RPL-S","status":"RUNNING","insertedDate":"2020-07-23T14:13:18","updatedDate":"2020-07-23T14:13:18"}}
