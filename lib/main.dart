@@ -206,7 +206,14 @@ class _MyHomePageState extends State<MyHomePage> {
     //   widget.channel.sink.add(_controller.text);
     // }
     widget.channel.sink.add(
-        '{"id":445060, "eventType":"EOD", "entityType":"PRCCHG", "jobStatus":"FAILURE"}');
+        '{
+  type: "NOTIFICATIONS_REQUEST",
+  data: {
+  userName: "g3ujna",
+  fetchCount: 10,
+  refreshRate: 2000,
+  order: "desc"
+}}');
   }
 
   // Widget parseJson(String jsonString) {
