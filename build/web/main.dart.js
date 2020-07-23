@@ -24894,7 +24894,7 @@ $ir:1}
 P.DA.prototype={}
 P.DB.prototype={}
 F.x8.prototype={
-K:function(a){var s,r,q,p,o="Operations Observability Dashboard",n=null,m=W.a3C(P.YA("ws://echo.websocket.org").i(0),n)
+K:function(a){var s,r,q,p,o="Operations Observability Dashboard",n=null,m=W.a3C(P.YA("ws://alfapt-db01:8070/amtmactivity/ws/notifications").i(0),n)
 m.binaryType="arraybuffer"
 s=new B.zp(t.sL)
 r=t.z
