@@ -23615,7 +23615,7 @@ J:function(a){var s=null,r=this.a,q=L.fK(r.c,s),p=E.TM(L.iX(C.nJ,s,s),!1,this.gF
 r=r.d.f.b.b
 r.toString
 return new M.oY(new E.mD(q,C.wk,new P.ao(1/0,56),s),new T.dd(C.ue,T.mY(H.b([p,new B.pc(new F.ND(this),new P.cY(r,H.r(r).j("cY<1>")),s,t.B9)],t.t),C.hX,C.dE,C.iZ),s),s)},
-Fa:function(){this.a.d.r.a.A(0,'{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}')},
+Fa:function(){this.a.d.r.a.A(0,'{type: "NOTIFICATIONS_REQUEST", data: {userName: "g3ujna", fetchCount: 10, refreshRate: 2000, order: "desc"}}')},
 w:function(){this.a.d.r.bw(0)
 this.bn()}}
 F.ND.prototype={
