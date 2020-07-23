@@ -206,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //   widget.channel.sink.add(_controller.text);
     // }
     widget.channel.sink.add(
-         '{"type": "NOTIFICATIONS_REQUEST", "data": {"userName": "g3ujna", "fetchCount": 10, "refreshRate": 2000, "order": "desc"}}');
+         '{"type": "NOTIFICATIONS_REQUEST", "data": {"userName": "g3ujna", "fetchCount": 10, "refreshRate": 2000, "order": "desc", "startTime": "2020-07-23T08:00:00"}}');
     //widget.channel.sink.add(
     //    '{"type": "NOTIFICATIONS_RESPONSE","data": [{"id": 12,"userName": "g3ujna","notificationType": "INSERT", "productName": "SFWL","subProductName": "RPL-S","message": "Sample message","status": "RUNNING","insertedDate": "","updatedDate": ""}]}');
   }
